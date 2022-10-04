@@ -5,7 +5,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import { Car } from './interfaces';
+import { Car, Category } from './interfaces';
 import { carsArray } from './carsArray';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,17 +15,10 @@ function App() {
   const [carList, setCarList] = useState<Car[]>([]);
   const navigate = useNavigate();
 
-  const setCar = (value: string) =>
+  const setCar = (value: Category) =>
   {
-    const filteredArray: Car[] = [];
-    carsArray.forEach((car) => {
-      if (car.type === value) {
-        filteredArray.push(car);
-
-      }
-    })
-    setCarList(filteredArray);
-    console.log(carList);
+    
+    setCarList(carsArray.filter((car) => car.type === value));
   }
   const carCard = carList.map((car) =>
     <Item key={car.id} onClick={()=>navigate(car.id.toString())}>
@@ -47,10 +40,10 @@ function App() {
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
               >
-                <FormControlLabel value="Basic" control={<Radio onClick={() => setCar("Basic")}/>}  label="Basic" />
-                <FormControlLabel value="Standard" control={<Radio onClick={() => setCar("Standard")}/> } label="Standard" />
-                <FormControlLabel value="Medium" control={<Radio onClick={() => setCar("Medium")}/> } label="Medium" />
-                <FormControlLabel value="Premium" control={<Radio onClick={() => setCar("Premium")}/> } label="Premium" />
+                <FormControlLabel value="Basic" control={<Radio onClick={() => setCar(Category.Basic)}/>}  label="Basic" />
+                <FormControlLabel value="Standard" control={<Radio onClick={() => setCar(Category.Standard)}/> } label="Standard" />
+                <FormControlLabel value="Medium" control={<Radio onClick={() => setCar(Category.Medium)}/> } label="Medium" />
+                <FormControlLabel value="Premium" control={<Radio onClick={() => setCar(Category.Premium)}/> } label="Premium" />
                 
               </RadioGroup>
             </FormControl>
